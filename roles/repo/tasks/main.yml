@@ -1,2 +1,51 @@
 ---
 # tasks file for repo
+- name: Execute satellite command to join
+  when: 
+    - satellite_enrollment_commands is defined
+    - satellite_enrollment_commands is not none
+    - use_satellite_token | bool
+  block:
+    - name: Join RHEL 8
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_major_version == 8
+      ansible.builtin.shell: "{{ satellite_enrollment_commands['rhel8'] }}"
+
+    - name: Join RHEL 9
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_major_version == 9
+      ansible.builtin.shell: "{{ satellite_enrollment_commands['rhel9'] }}"
+
+- name: Add repos manually when satellite is not available
+  when: satellite_enrollment_commands is not defined or use_satellite_token == false or satellite_enrollment_commands is none
+  block:
+    - name: Configure for RHEL 8
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_major_version == '8'
+      block:
+        - name: Add repos
+          loop: "{{ pgdg_upstream_repos['rhel8'] }}"
+          ansible.builtin.yum_repository:
+            name: "{{ item.name }}"
+            file: pgdg_repos
+            baseurl: "{{ item.baseurl }}"
+            enabled: true
+            gpgcheck: false
+
+    - name: Configure for RHEL 9
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_major_version == '9'
+      block:
+        - name: Add repos
+          loop: "{{ pgdg_upstream_repos['rhel9'] }}"
+          ansible.builtin.yum_repository:
+            name: "{{ item.name }}"
+            description: "{{ item.description }}"
+            file: pgdg_repos
+            baseurl: "{{ item.baseurl }}"
+            enabled: true
+            gpgcheck: false

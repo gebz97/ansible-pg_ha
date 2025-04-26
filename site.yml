@@ -1,0 +1,7 @@
+---
+- name: Playbook for setting up a PostgreSQL HA Cluster
+  hosts:
+    - pg_db_nodes
+
+  roles:
+    - role: repo

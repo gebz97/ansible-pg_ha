@@ -1,2 +1,25 @@
 ---
 # defaults file for repo
+#satellite_enrollment_commands: null
+use_satellite_token: false
+pgdg_upstream_repos:
+  rhel9:
+    - name: "pgdg_17_main"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/17/redhat/rhel-9-x86_64/"
+      description: "PostgreSQL 17 main PGDG"
+    - name: "pgdg_17_common"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-9-x86_64/"
+      description: "PostgreSQL common PGDG"
+    - name: "pgdg_17_extras"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/common/pgdg-rhel9-extras/redhat/rhel-9-x86_64/"
+      description: "PostgreSQL extras PGDG"
+  rhel8:
+    - name: "pgdg_17_main"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/17/redhat/rhel-8-x86_64/"
+      description: "PostgreSQL 17 main PGDG"
+    - name: "pgdg_17_common"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/"
+      description: "PostgreSQL common PGDG"
+    - name: "pgdg_17_extras"
+      baseurl: "https://download.postgresql.org/pub/repos/yum/common/pgdg-rhel8-extras/redhat/rhel-8-x86_64/"
+      description: "PostgreSQL extras PGDG"
