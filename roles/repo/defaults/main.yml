@@ -1,6 +1,8 @@
 ---
 # defaults file for repo
-#satellite_enrollment_commands: null
+# satellite_enrollment_commands:
+#   rhel8: "ENTER YOUR SATELLITE ENROLLMENT COMMAND"
+#   rhel9: "ENTER YOUR SATELLITE ENROLLMENT COMMAND"
 use_satellite_token: false
 pgdg_upstream_repos:
   rhel9:
